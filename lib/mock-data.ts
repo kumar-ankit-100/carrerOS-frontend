@@ -80,6 +80,51 @@ export const resumePerformance = [
   { week: "W6", v3: 44, v2: 23, v4: 15 },
 ];
 
+export const insights = [
+  {
+    id: "i1",
+    label: "Resume",
+    title: "Backend v3 outperforms Backend v2 by 42%",
+    body: "Across 64 backend applications in the last 30 days, V3 produced 16 callbacks vs. V2's 4. Consider archiving V2.",
+    confidence: 94,
+    impact: "high" as const,
+  },
+  {
+    id: "i2",
+    label: "Channel",
+    title: "Startup applications convert 2.1× better than enterprise",
+    body: "Series A–C companies yield 31% callback vs. 14% for Fortune 500. Reweighting your pipeline could lift offers by an estimated 18%.",
+    confidence: 88,
+    impact: "high" as const,
+  },
+  {
+    id: "i3",
+    label: "Timing",
+    title: "Follow-ups within 5 days lift recruiter response by 36%",
+    body: "Of 22 follow-ups sent within 5 days, 14 received responses. Beyond 5 days, response rate drops to 22%.",
+    confidence: 82,
+    impact: "medium" as const,
+  },
+  {
+    id: "i4",
+    label: "Role fit",
+    title: "Platform & Infra roles are your strongest domain",
+    body: "Your interview conversion in this domain (28%) is well above the platform average (17%). Consider prioritizing these roles.",
+    confidence: 79,
+    impact: "medium" as const,
+  },
+];
+
+export const followUps = [
+  { id: "f1", company: "Stripe", recruiter: "Sarah Chen", action: "Reply to Sarah's onsite confirmation", due: "today", priority: "high" as const, channel: "Email" },
+  { id: "f2", company: "Linear", recruiter: "Michael Reyes", action: "Send thank-you note after technical screen", due: "tomorrow", priority: "high" as const, channel: "Email" },
+  { id: "f3", company: "Vercel", recruiter: "Daniel Wong", action: "Nudge on referral status", due: "in 2 days", priority: "medium" as const, channel: "LinkedIn" },
+  { id: "f4", company: "Anthropic", recruiter: "Priya Sharma", action: "Share portfolio + system design write-up", due: "in 3 days", priority: "medium" as const, channel: "Email" },
+  { id: "f5", company: "Notion", recruiter: "Emma Johansson", action: "Confirm availability for final round", due: "in 4 days", priority: "low" as const, channel: "Email" },
+  { id: "f6", company: "Datadog", recruiter: "Tom Becker", action: "Re-engage after 14 days of silence", due: "overdue · 2 days", priority: "high" as const, channel: "Email", overdue: true },
+  { id: "f7", company: "Plaid", recruiter: "—", action: "Apply directly after recruiter intro", due: "in 5 days", priority: "low" as const, channel: "Web" },
+];
+
 export const companyConversion = [
   { company: "Stripe", applied: 4, interview: 3 },
   { company: "Linear", applied: 2, interview: 2 },

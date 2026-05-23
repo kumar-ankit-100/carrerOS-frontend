@@ -9,6 +9,7 @@ import {
   Users,
   Settings,
   Sparkles,
+  Bell,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
@@ -20,6 +21,7 @@ const nav = [
   { href: "/resume", label: "Resume", icon: FileText },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/recruiters", label: "Recruiters", icon: Users },
+  { href: "/follow-ups", label: "Follow-ups", icon: Bell },
 ];
 
 export function Sidebar() {
