@@ -16,7 +16,7 @@ export function HeroPreview() {
           <div className="h-2.5 w-2.5 rounded-full bg-muted" />
           <div className="h-2.5 w-2.5 rounded-full bg-muted" />
         </div>
-        <div className="mx-auto text-xs text-muted-foreground font-mono">careeros.app/dashboard</div>
+        <div className="mx-auto text-xs text-muted-foreground font-mono">interviewwala.com/dashboard</div>
       </div>
       <div className="grid grid-cols-12 gap-0">
         <div className="col-span-3 hidden md:flex flex-col border-r border-border p-4 gap-1.5">

@@ -16,7 +16,7 @@ export function IntelligenceSection() {
               Decisions backed by your own data.
             </h2>
             <p className="mt-4 text-muted-foreground leading-relaxed">
-              Every action you take is a data point. CareerOS turns hundreds of small signals into
+              Every action you take is a data point. InterviewWala turns hundreds of small signals into
               clear next moves.
             </p>
           </div>

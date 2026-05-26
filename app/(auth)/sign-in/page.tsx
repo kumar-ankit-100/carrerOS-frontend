@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 export default function SignInPage() {
   return (
     <div>
-      <h1 className="text-2xl font-semibold tracking-tight">Sign in to CareerOS</h1>
+      <h1 className="text-2xl font-semibold tracking-tight">Sign in to InterviewWala</h1>
       <p className="mt-1.5 text-sm text-muted-foreground">
         Welcome back. Enter your details below.
       </p>
@@ -41,7 +41,7 @@ export default function SignInPage() {
       </form>
 
       <p className="mt-6 text-center text-sm text-muted-foreground">
-        New to CareerOS?{" "}
+        New to InterviewWala?{" "}
         <Link href="/sign-up" className="text-foreground font-medium hover:underline">
           Create an account
         </Link>

@@ -34,7 +34,7 @@ export function LandingFooter() {
           ))}
         </div>
         <div className="mt-12 pt-6 border-t border-border flex items-center justify-between text-xs text-muted-foreground">
-          <span>© 2026 CareerOS, Inc.</span>
+          <span>© 2026 InterviewWala, Inc.</span>
           <span>SOC 2 Type II · GDPR ready</span>
         </div>
       </div>

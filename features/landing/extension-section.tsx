@@ -15,7 +15,7 @@ export function ExtensionSection() {
                 Capture every application, automatically.
               </h2>
               <p className="mt-4 text-muted-foreground leading-relaxed">
-                The CareerOS extension watches your applications across LinkedIn, Greenhouse,
+                The InterviewWala extension watches your applications across LinkedIn, Greenhouse,
                 Lever, Ashby, and Workday. No copy-paste. No spreadsheets.
               </p>
               <ul className="mt-6 space-y-2.5 text-sm text-muted-foreground">

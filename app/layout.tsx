@@ -6,10 +6,10 @@ import { Providers } from "@/components/providers";
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "CareerOS — Career Intelligence Platform",
+  title: "InterviewWala — Track and optimize your interview journey",
   description:
-    "Optimize your job search with real application analytics, resume intelligence, and recruiter workflows.",
-  metadataBase: new URL("https://careeros.app"),
+    "Career intelligence built for modern job seekers. Track applications, measure resume performance, and understand what actually works in your job search.",
+  metadataBase: new URL("https://interviewwala.com"),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -18,16 +18,16 @@ export function Hero() {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/50 px-3 py-1 text-xs text-muted-foreground mb-6">
             <span className="h-1.5 w-1.5 rounded-full bg-success" />
-            New — Resume V3 callback model released
+            New — InterviewWala for Chrome is live
           </div>
           <h1 className="text-balance text-4xl md:text-6xl font-semibold tracking-tight leading-[1.05]">
-            Career intelligence
+            Track and optimize
             <br />
-            <span className="text-muted-foreground">for serious job seekers.</span>
+            <span className="text-muted-foreground">your interview journey.</span>
           </h1>
           <p className="mt-6 text-pretty text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-            Optimize your job search using real application analytics. Track every application,
-            measure resume performance, and learn what actually converts.
+            InterviewWala is career intelligence built for modern job seekers. Track every
+            application, measure resume performance, and understand what actually works.
           </p>
           <div className="mt-8 flex items-center justify-center gap-3">
             <Button asChild size="lg" className="h-10 px-5">

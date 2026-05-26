@@ -50,7 +50,7 @@ export default function OnboardingPage() {
         <div className="text-xs text-muted-foreground font-medium tracking-wider uppercase">
           Step {step + 1} of {steps.length}
         </div>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight">Let's set up CareerOS</h1>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight">Let's set up InterviewWala</h1>
         <p className="mt-1.5 text-sm text-muted-foreground">
           A 2-minute setup so your data starts flowing on day one.
         </p>
@@ -91,7 +91,7 @@ export default function OnboardingPage() {
                 <div className="flex items-center gap-3">
                   <Chrome className="h-4 w-4" />
                   <div>
-                    <div className="text-sm font-medium">CareerOS for Chrome</div>
+                    <div className="text-sm font-medium">InterviewWala for Chrome</div>
                     <div className="text-xs text-muted-foreground">Also available for Arc & Edge</div>
                   </div>
                 </div>

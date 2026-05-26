@@ -1,5 +1,5 @@
 const steps = [
-  { n: "01", t: "Capture", b: "Apply anywhere — CareerOS catches it." },
+  { n: "01", t: "Capture", b: "Apply anywhere — InterviewWala catches it." },
   { n: "02", t: "Track", b: "Pipeline auto-updates as you progress." },
   { n: "03", t: "Optimize", b: "Use insights to fix what's not converting." },
   { n: "04", t: "Close", b: "Move from offer to signed faster." },

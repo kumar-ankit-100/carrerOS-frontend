@@ -33,7 +33,7 @@ export function ProductShowcase() {
             The operating system for your job search.
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed">
-            CareerOS replaces the patchwork of spreadsheets, notes, and trackers with a single
+            InterviewWala replaces the patchwork of spreadsheets, notes, and trackers with a single
             workspace built for serious candidates.
           </p>
         </div>

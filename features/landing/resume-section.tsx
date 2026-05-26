@@ -17,7 +17,7 @@ export function ResumeSection() {
             Know which resume actually converts.
           </h2>
           <p className="mt-4 text-muted-foreground leading-relaxed">
-            CareerOS attributes every callback to the exact resume version you sent. Stop guessing
+            InterviewWala attributes every callback to the exact resume version you sent. Stop guessing
             which bullet works — measure it.
           </p>
           <div className="mt-6 rounded-md border border-border bg-card p-4 text-sm">

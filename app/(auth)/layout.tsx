@@ -10,7 +10,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <div className="w-full max-w-sm">{children}</div>
         </div>
         <div className="flex items-center justify-between text-xs text-muted-foreground">
-          <span>© 2026 CareerOS</span>
+          <span>© 2026 InterviewWala</span>
           <div className="flex gap-4">
             <Link href="#">Privacy</Link>
             <Link href="#">Terms</Link>
@@ -21,7 +21,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="absolute inset-0 grid-bg opacity-[0.4] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
         <div className="relative m-auto p-12 max-w-md">
           <blockquote className="text-2xl font-medium tracking-tight leading-snug">
-            "CareerOS turned my job search from chaos into a disciplined operating loop. I landed
+            "InterviewWala turned my job search from chaos into a disciplined operating loop. I landed
             three offers in five weeks."
           </blockquote>
           <div className="mt-6 flex items-center gap-3">

@@ -90,7 +90,7 @@ export function Sidebar() {
         <Avatar name="Ankit Sharma" size={28} />
         <div className="min-w-0">
           <div className="text-sm font-medium truncate">Ankit Sharma</div>
-          <div className="text-xs text-muted-foreground truncate">ankit@careeros.app</div>
+          <div className="text-xs text-muted-foreground truncate">ankit@interviewwala.com</div>
         </div>
       </div>
     </aside>

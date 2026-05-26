@@ -2,7 +2,7 @@ import { Avatar } from "@/components/ui/avatar";
 
 const items = [
   {
-    q: "I went from 8% callback rate to 31% in three weeks. CareerOS told me exactly which resume bullets were dead weight.",
+    q: "I went from 8% callback rate to 31% in three weeks. InterviewWala told me exactly which resume bullets were dead weight.",
     name: "Maya Patel",
     role: "Senior Engineer, ex-Square",
   },

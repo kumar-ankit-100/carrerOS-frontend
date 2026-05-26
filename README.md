@@ -1,4 +1,4 @@
-# CareerOS — Frontend
+# InterviewWala — Frontend
 
 Production-grade SaaS frontend for an AI-powered career intelligence platform. Built with Next.js 15, TypeScript, Tailwind, Framer Motion, TanStack Query, and Zustand. Frontend only — mocked data.
 

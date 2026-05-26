@@ -32,7 +32,7 @@ export default function SettingsPage() {
                 <Input defaultValue="Ankit Sharma" />
               </Row>
               <Row label="Email">
-                <Input defaultValue="ankit@careeros.app" />
+                <Input defaultValue="ankit@interviewwala.com" />
               </Row>
               <Row label="Role focus">
                 <Input defaultValue="Backend Engineer" />
@@ -53,7 +53,7 @@ export default function SettingsPage() {
           </TabsContent>
 
           <TabsContent value="integrations" className="mt-6 space-y-6">
-            <Section title="Integrations" desc="Connect external tools to CareerOS.">
+            <Section title="Integrations" desc="Connect external tools to InterviewWala.">
               {[
                 { n: "LinkedIn", d: "Sync applications and conversations." },
                 { n: "Gmail", d: "Detect recruiter outreach and schedule." },
@@ -82,7 +82,7 @@ export default function SettingsPage() {
               </div>
               <Separator />
               <div className="text-xs text-muted-foreground">
-                Need an invoice or VAT receipt? Contact billing@careeros.app.
+                Need an invoice or VAT receipt? Contact billing@interviewwala.com.
               </div>
             </Section>
           </TabsContent>
