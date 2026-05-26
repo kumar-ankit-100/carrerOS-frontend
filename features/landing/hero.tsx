@@ -40,7 +40,7 @@ export function Hero() {
             </Button>
           </div>
           <p className="mt-4 text-xs text-muted-foreground">
-            Free for 14 days · No credit card · 2-minute setup
+            Free forever · No credit card · 2-minute setup
           </p>
         </motion.div>
 

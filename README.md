@@ -33,7 +33,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | `/resume` | Resume intelligence — ATS, callback rate, per-version performance |
 | `/analytics` | Funnel, trends, domain & company conversion |
 | `/recruiters` | CRM with conversation thread |
-| `/settings` | Profile, preferences, integrations, billing |
+| `/settings` | Profile, preferences, integrations |
 
 ## Architecture
 

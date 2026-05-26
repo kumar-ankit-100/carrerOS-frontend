@@ -3,7 +3,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Separator } from "@/components/ui/separator";
 import { Avatar } from "@/components/ui/avatar";
 
 export default function SettingsPage() {
@@ -16,7 +15,6 @@ export default function SettingsPage() {
             <TabsTrigger value="profile">Profile</TabsTrigger>
             <TabsTrigger value="preferences">Preferences</TabsTrigger>
             <TabsTrigger value="integrations">Integrations</TabsTrigger>
-            <TabsTrigger value="billing">Billing</TabsTrigger>
           </TabsList>
 
           <TabsContent value="profile" className="mt-6 space-y-6">
@@ -71,21 +69,6 @@ export default function SettingsPage() {
             </Section>
           </TabsContent>
 
-          <TabsContent value="billing" className="mt-6 space-y-6">
-            <Section title="Billing" desc="Manage your subscription.">
-              <div className="rounded-lg border border-border p-4 flex items-center justify-between">
-                <div>
-                  <div className="text-sm font-medium">Pro plan · $12/month</div>
-                  <div className="text-xs text-muted-foreground">Renews on June 14, 2026</div>
-                </div>
-                <Button size="sm" variant="outline">Manage</Button>
-              </div>
-              <Separator />
-              <div className="text-xs text-muted-foreground">
-                Need an invoice or VAT receipt? Contact billing@interviewwala.com.
-              </div>
-            </Section>
-          </TabsContent>
         </Tabs>
       </div>
     </>

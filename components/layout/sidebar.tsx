@@ -8,7 +8,6 @@ import {
   BarChart3,
   Users,
   Settings,
-  Sparkles,
   Bell,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -72,19 +71,6 @@ export function Sidebar() {
           Settings
         </Link>
       </nav>
-
-      <div className="m-3 rounded-lg border border-border bg-card p-3">
-        <div className="flex items-center gap-2 text-xs font-medium">
-          <Sparkles className="h-3.5 w-3.5 text-foreground" />
-          Pro plan
-        </div>
-        <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-          Unlimited resume versions and AI insights.
-        </p>
-        <button className="mt-3 w-full rounded-md bg-foreground text-background text-xs font-medium py-1.5 hover:bg-foreground/90 transition">
-          Upgrade
-        </button>
-      </div>
 
       <div className="border-t border-border p-3 flex items-center gap-2.5">
         <Avatar name="Ankit Sharma" size={28} />

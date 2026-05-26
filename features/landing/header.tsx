@@ -6,7 +6,6 @@ const links = [
   { href: "#product", label: "Product" },
   { href: "#intelligence", label: "Intelligence" },
   { href: "#extension", label: "Extension" },
-  { href: "#pricing", label: "Pricing" },
 ];
 
 export function LandingHeader() {
