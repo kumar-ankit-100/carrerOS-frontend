@@ -1,8 +1,19 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useSignIn } from "@/hooks/use-auth";
 
 export default function SignInPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const signIn = useSignIn();
+  const errMsg =
+    (signIn.error as { response?: { data?: { error?: { message?: string } } } } | null)
+      ?.response?.data?.error?.message ??
+    (signIn.error ? "Invalid email or password." : null);
+
   return (
     <div>
       <h1 className="text-2xl font-semibold tracking-tight">Sign in to InterviewWala</h1>
@@ -10,22 +21,47 @@ export default function SignInPage() {
         Welcome back. Enter your details below.
       </p>
 
-      <form className="mt-8 space-y-4">
+      <form
+        className="mt-8 space-y-4"
+        onSubmit={(e) => {
+          e.preventDefault();
+          signIn.mutate({ email, password });
+        }}
+      >
         <div className="space-y-1.5">
-          <label className="text-sm font-medium">Email</label>
-          <Input type="email" placeholder="you@company.com" />
+          <label className="text-sm font-medium" htmlFor="email">Email</label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="you@company.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <label className="text-sm font-medium">Password</label>
+            <label className="text-sm font-medium" htmlFor="password">Password</label>
             <Link href="#" className="text-xs text-muted-foreground hover:text-foreground">
               Forgot?
             </Link>
           </div>
-          <Input type="password" placeholder="••••••••" />
+          <Input
+            id="password"
+            type="password"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
         </div>
-        <Button asChild className="w-full">
-          <Link href="/dashboard">Sign in</Link>
+
+        {errMsg && (
+          <div className="text-xs text-destructive">{errMsg}</div>
+        )}
+
+        <Button type="submit" className="w-full" disabled={signIn.isPending}>
+          {signIn.isPending ? "Signing in…" : "Sign in"}
         </Button>
 
         <div className="relative my-2">
@@ -37,7 +73,9 @@ export default function SignInPage() {
           </div>
         </div>
 
-        <Button variant="outline" className="w-full">Continue with Google</Button>
+        <Button type="button" variant="outline" className="w-full">
+          Continue with Google
+        </Button>
       </form>
 
       <p className="mt-6 text-center text-sm text-muted-foreground">

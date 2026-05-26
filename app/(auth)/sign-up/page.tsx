@@ -1,8 +1,20 @@
+"use client";
 import Link from "next/link";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useSignUp } from "@/hooks/use-auth";
 
 export default function SignUpPage() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const signUp = useSignUp();
+  const errMsg =
+    (signUp.error as { response?: { data?: { error?: { message?: string } } } } | null)
+      ?.response?.data?.error?.message ??
+    (signUp.error ? "Could not create account. Try again." : null);
+
   return (
     <div>
       <h1 className="text-2xl font-semibold tracking-tight">Create your account</h1>
@@ -10,21 +22,51 @@ export default function SignUpPage() {
         Start optimizing your job search in under 2 minutes.
       </p>
 
-      <form className="mt-8 space-y-4">
+      <form
+        className="mt-8 space-y-4"
+        onSubmit={(e) => {
+          e.preventDefault();
+          signUp.mutate({ fullName, email, password });
+        }}
+      >
         <div className="space-y-1.5">
-          <label className="text-sm font-medium">Full name</label>
-          <Input placeholder="Jane Doe" />
+          <label className="text-sm font-medium" htmlFor="name">Full name</label>
+          <Input
+            id="name"
+            placeholder="Jane Doe"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            required
+          />
         </div>
         <div className="space-y-1.5">
-          <label className="text-sm font-medium">Work email</label>
-          <Input type="email" placeholder="you@company.com" />
+          <label className="text-sm font-medium" htmlFor="email">Work email</label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="you@company.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
         <div className="space-y-1.5">
-          <label className="text-sm font-medium">Password</label>
-          <Input type="password" placeholder="At least 8 characters" />
+          <label className="text-sm font-medium" htmlFor="password">Password</label>
+          <Input
+            id="password"
+            type="password"
+            placeholder="At least 8 characters"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            minLength={8}
+            required
+          />
         </div>
-        <Button asChild className="w-full">
-          <Link href="/dashboard">Create account</Link>
+
+        {errMsg && <div className="text-xs text-destructive">{errMsg}</div>}
+
+        <Button type="submit" className="w-full" disabled={signUp.isPending}>
+          {signUp.isPending ? "Creating account…" : "Create account"}
         </Button>
 
         <p className="text-[11px] text-muted-foreground text-center">

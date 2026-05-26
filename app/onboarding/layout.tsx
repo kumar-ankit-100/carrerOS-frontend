@@ -1,8 +1,10 @@
 import { Logo } from "@/components/layout/logo";
 import Link from "next/link";
+import { AuthGuard } from "@/components/auth-guard";
 
 export default function OnboardingLayout({ children }: { children: React.ReactNode }) {
   return (
+    <AuthGuard>
     <div className="min-h-screen flex flex-col">
       <header className="h-14 border-b border-border flex items-center justify-between px-6">
         <Logo />
@@ -17,5 +19,6 @@ export default function OnboardingLayout({ children }: { children: React.ReactNo
         <div className="w-full max-w-2xl">{children}</div>
       </main>
     </div>
+    </AuthGuard>
   );
 }

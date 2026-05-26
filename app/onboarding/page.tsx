@@ -1,13 +1,29 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Check, Chrome, FileUp, Briefcase, Mail, ArrowRight, ArrowLeft } from "lucide-react";
+import {
+  Check,
+  Chrome,
+  FileUp,
+  Briefcase,
+  Mail,
+  ArrowRight,
+  ArrowLeft,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  useCompleteOnboardingStep,
+  useFinishOnboarding,
+  useOnboardingStatus,
+} from "@/hooks/use-onboarding";
 
-const steps = [
+type StepKey = "extension" | "resume" | "application" | "gmail";
+
+const steps: { key: StepKey; icon: typeof Chrome; title: string; desc: string }[] = [
   {
     key: "extension",
     icon: Chrome,
@@ -35,13 +51,37 @@ const steps = [
 ];
 
 export default function OnboardingPage() {
+  const router = useRouter();
+  const status = useOnboardingStatus();
+  const completeStep = useCompleteOnboardingStep();
+  const finish = useFinishOnboarding();
+
   const [step, setStep] = useState(0);
-  const [completed, setCompleted] = useState<Record<string, boolean>>({});
+
+  useEffect(() => {
+    if (status.data) setStep(Math.min(status.data.step, steps.length - 1));
+  }, [status.data]);
+
+  const completed = status.data?.completed ?? {
+    extension: false,
+    resume: false,
+    application: false,
+    gmail: false,
+  };
   const current = steps[step];
 
   const markDone = () => {
-    setCompleted((s) => ({ ...s, [current.key]: true }));
-    if (step < steps.length - 1) setStep(step + 1);
+    completeStep.mutate(current.key, {
+      onSuccess: () => {
+        if (step < steps.length - 1) setStep(step + 1);
+      },
+    });
+  };
+
+  const onFinish = () => {
+    finish.mutate(undefined, {
+      onSuccess: () => router.push("/dashboard"),
+    });
   };
 
   return (
@@ -50,7 +90,9 @@ export default function OnboardingPage() {
         <div className="text-xs text-muted-foreground font-medium tracking-wider uppercase">
           Step {step + 1} of {steps.length}
         </div>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight">Let's set up InterviewWala</h1>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight">
+          Let's set up InterviewWala
+        </h1>
         <p className="mt-1.5 text-sm text-muted-foreground">
           A 2-minute setup so your data starts flowing on day one.
         </p>
@@ -144,13 +186,11 @@ export default function OnboardingPage() {
               <Link href="/dashboard">Skip</Link>
             </Button>
             {step === steps.length - 1 ? (
-              <Button size="sm" asChild>
-                <Link href="/dashboard">
-                  Finish <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
+              <Button size="sm" onClick={onFinish} disabled={finish.isPending}>
+                Finish <ArrowRight className="h-3.5 w-3.5" />
               </Button>
             ) : (
-              <Button size="sm" onClick={markDone}>
+              <Button size="sm" onClick={markDone} disabled={completeStep.isPending}>
                 Continue <ArrowRight className="h-3.5 w-3.5" />
               </Button>
             )}

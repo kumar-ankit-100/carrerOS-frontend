@@ -1,11 +1,55 @@
+"use client";
 import { Topbar } from "@/components/layout/topbar";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Avatar } from "@/components/ui/avatar";
+import { useEffect, useState } from "react";
+import { useCurrentUser } from "@/hooks/use-auth";
+import { useUpdateProfile, useUpdatePreferences } from "@/hooks/use-user";
+import {
+  useConnectIntegration,
+  useDisconnectIntegration,
+  useIntegrations,
+} from "@/hooks/use-integrations";
+
+const providerLabels: Record<string, { name: string; desc: string }> = {
+  linkedin: { name: "LinkedIn", desc: "Sync applications and conversations." },
+  gmail: { name: "Gmail", desc: "Detect recruiter outreach and schedule." },
+  google_calendar: { name: "Google Calendar", desc: "Mirror interviews to your calendar." },
+  slack: { name: "Slack", desc: "Notify yourself on follow-up reminders." },
+};
+
+const PROVIDERS = ["linkedin", "gmail", "google_calendar", "slack"];
 
 export default function SettingsPage() {
+  const { data: user } = useCurrentUser();
+  const updateProfile = useUpdateProfile();
+  const updatePrefs = useUpdatePreferences();
+  const integrationsQ = useIntegrations();
+  const connect = useConnectIntegration();
+  const disconnect = useDisconnectIntegration();
+
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [roleFocus, setRoleFocus] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      setFullName(user.fullName ?? "");
+      setEmail(user.email ?? "");
+      setRoleFocus(user.roleFocus ?? "");
+    }
+  }, [user]);
+
+  const prefs = user?.preferences ?? {
+    emailDigests: true,
+    browserNotifications: true,
+    compactDensity: false,
+    autoCapture: true,
+  };
+
   return (
     <>
       <Topbar title="Settings" subtitle="Manage your account, preferences, and integrations" />
@@ -20,55 +64,103 @@ export default function SettingsPage() {
           <TabsContent value="profile" className="mt-6 space-y-6">
             <Section title="Profile" desc="Your personal information and account details.">
               <div className="flex items-center gap-4">
-                <Avatar name="Ankit Sharma" size={56} />
+                <Avatar name={fullName || "—"} size={56} />
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm">Upload</Button>
                   <Button variant="ghost" size="sm">Remove</Button>
                 </div>
               </div>
               <Row label="Full name">
-                <Input defaultValue="Ankit Sharma" />
+                <Input value={fullName} onChange={(e) => setFullName(e.target.value)} />
               </Row>
               <Row label="Email">
-                <Input defaultValue="ankit@interviewwala.com" />
+                <Input value={email} onChange={(e) => setEmail(e.target.value)} />
               </Row>
               <Row label="Role focus">
-                <Input defaultValue="Backend Engineer" />
+                <Input value={roleFocus} onChange={(e) => setRoleFocus(e.target.value)} />
               </Row>
               <div className="flex justify-end">
-                <Button size="sm">Save changes</Button>
+                <Button
+                  size="sm"
+                  disabled={updateProfile.isPending}
+                  onClick={() =>
+                    updateProfile.mutate({ fullName, email, roleFocus })
+                  }
+                >
+                  {updateProfile.isPending ? "Saving…" : "Save changes"}
+                </Button>
               </div>
             </Section>
           </TabsContent>
 
           <TabsContent value="preferences" className="mt-6 space-y-6">
             <Section title="Preferences" desc="Notifications, theme, and workspace defaults.">
-              <Toggle label="Email digests" desc="Weekly summary of your pipeline and metrics." defaultChecked />
-              <Toggle label="Browser notifications" desc="Get notified when recruiters reply or interviews update." defaultChecked />
-              <Toggle label="Compact density" desc="Tighter spacing for dense workflows." />
-              <Toggle label="Auto-capture from extension" desc="Add new applications to pipeline automatically." defaultChecked />
+              <Toggle
+                label="Email digests"
+                desc="Weekly summary of your pipeline and metrics."
+                checked={prefs.emailDigests}
+                onChange={(v) => updatePrefs.mutate({ emailDigests: v })}
+              />
+              <Toggle
+                label="Browser notifications"
+                desc="Get notified when recruiters reply or interviews update."
+                checked={prefs.browserNotifications}
+                onChange={(v) => updatePrefs.mutate({ browserNotifications: v })}
+              />
+              <Toggle
+                label="Compact density"
+                desc="Tighter spacing for dense workflows."
+                checked={prefs.compactDensity}
+                onChange={(v) => updatePrefs.mutate({ compactDensity: v })}
+              />
+              <Toggle
+                label="Auto-capture from extension"
+                desc="Add new applications to pipeline automatically."
+                checked={prefs.autoCapture}
+                onChange={(v) => updatePrefs.mutate({ autoCapture: v })}
+              />
             </Section>
           </TabsContent>
 
           <TabsContent value="integrations" className="mt-6 space-y-6">
             <Section title="Integrations" desc="Connect external tools to InterviewWala.">
-              {[
-                { n: "LinkedIn", d: "Sync applications and conversations." },
-                { n: "Gmail", d: "Detect recruiter outreach and schedule." },
-                { n: "Google Calendar", d: "Mirror interviews to your calendar." },
-                { n: "Slack", d: "Notify yourself on follow-up reminders." },
-              ].map((i) => (
-                <div key={i.n} className="flex items-center justify-between py-3 border-b border-border last:border-0">
-                  <div>
-                    <div className="text-sm font-medium">{i.n}</div>
-                    <div className="text-xs text-muted-foreground">{i.d}</div>
+              {PROVIDERS.map((p) => {
+                const meta = providerLabels[p];
+                const integ = integrationsQ.data?.find((i) => i.provider === p);
+                const connected = integ?.status === "connected";
+                return (
+                  <div
+                    key={p}
+                    className="flex items-center justify-between py-3 border-b border-border last:border-0"
+                  >
+                    <div>
+                      <div className="text-sm font-medium">{meta.name}</div>
+                      <div className="text-xs text-muted-foreground">{meta.desc}</div>
+                    </div>
+                    {connected ? (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => disconnect.mutate(p)}
+                        disabled={disconnect.isPending}
+                      >
+                        Disconnect
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => connect.mutate(p)}
+                        disabled={connect.isPending}
+                      >
+                        Connect
+                      </Button>
+                    )}
                   </div>
-                  <Button variant="outline" size="sm">Connect</Button>
-                </div>
-              ))}
+                );
+              })}
             </Section>
           </TabsContent>
-
         </Tabs>
       </div>
     </>
@@ -107,11 +199,13 @@ function Row({ label, children }: { label: string; children: React.ReactNode }) 
 function Toggle({
   label,
   desc,
-  defaultChecked,
+  checked,
+  onChange,
 }: {
   label: string;
   desc: string;
-  defaultChecked?: boolean;
+  checked: boolean;
+  onChange: (v: boolean) => void;
 }) {
   return (
     <div className="flex items-start justify-between py-3 border-b border-border last:border-0">
@@ -119,7 +213,7 @@ function Toggle({
         <div className="text-sm font-medium">{label}</div>
         <div className="text-xs text-muted-foreground mt-0.5">{desc}</div>
       </div>
-      <Switch defaultChecked={defaultChecked} />
+      <Switch checked={checked} onCheckedChange={onChange} />
     </div>
   );
 }

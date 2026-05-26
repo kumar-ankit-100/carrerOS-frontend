@@ -9,10 +9,12 @@ import {
   Users,
   Settings,
   Bell,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 import { Avatar } from "@/components/ui/avatar";
+import { useCurrentUser, useSignOut } from "@/hooks/use-auth";
 
 const nav = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -25,6 +27,8 @@ const nav = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { data: user } = useCurrentUser();
+  const signOut = useSignOut();
   return (
     <aside className="hidden lg:flex h-screen w-60 shrink-0 flex-col border-r border-border bg-card/40 sticky top-0">
       <div className="h-14 flex items-center px-5 border-b border-border">
@@ -73,11 +77,22 @@ export function Sidebar() {
       </nav>
 
       <div className="border-t border-border p-3 flex items-center gap-2.5">
-        <Avatar name="Ankit Sharma" size={28} />
-        <div className="min-w-0">
-          <div className="text-sm font-medium truncate">Ankit Sharma</div>
-          <div className="text-xs text-muted-foreground truncate">ankit@interviewwala.com</div>
+        <Avatar name={user?.fullName ?? "—"} size={28} />
+        <div className="min-w-0 flex-1">
+          <div className="text-sm font-medium truncate">
+            {user?.fullName ?? "Loading…"}
+          </div>
+          <div className="text-xs text-muted-foreground truncate">
+            {user?.email ?? ""}
+          </div>
         </div>
+        <button
+          onClick={() => signOut.mutate()}
+          aria-label="Sign out"
+          className="text-muted-foreground hover:text-foreground p-1 -mr-1 rounded transition-colors"
+        >
+          <LogOut className="h-3.5 w-3.5" />
+        </button>
       </div>
     </aside>
   );
